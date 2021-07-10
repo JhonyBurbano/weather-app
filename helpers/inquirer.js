@@ -43,7 +43,7 @@ const pause = async() => {
     return await inquirer.prompt(options);
 }
 
-const readTalk = async(message) => {
+const readInput = async(message) => {
     const question = [{
         type: 'input',
         name: 'desc',
@@ -125,7 +125,7 @@ const selectTalkCheckList = async(talks = []) => {
 module.exports = {
     inquirerMenu,
     pause,
-    readTalk,
+    readInput,
     listTalkDelete,
     confirm,
     selectTalkCheckList
