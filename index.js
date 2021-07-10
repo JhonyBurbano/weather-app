@@ -15,8 +15,8 @@ const main = async() => {
                 ciudad escrita = written city
                 */
                 const writtenCity = await readInput('Ciudad: ');
-                console.log(writtenCity);
-                // Buscar los lugares
+                await searches.city(writtenCity)
+                    // Buscar los lugares
 
                 // Seleccionar el lugar
 

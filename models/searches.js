@@ -1,3 +1,4 @@
+const axios = require('axios');
 class Searches {
     // atributos o propiedades
     records = ['Ottawa', 'Madrid', 'San jose']
@@ -11,9 +12,16 @@ class Searches {
     lugar = place
     */
     async city(place = '') {
-        // Peticion http
-        console.log({ place });
-        return []; // retorna las ciudades encontrdas
+        try {
+            // Peticion http
+            // console.log('Ciudad - ', place);
+            const resp = await axios.get('https://reqres.in/api/users?page=2');
+            console.log(resp.data);
+
+            return []; // retorna las ciudades encontrdas   
+        } catch (error) {
+            return [];
+        }
     }
 }
 
