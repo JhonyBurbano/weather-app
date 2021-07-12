@@ -16,10 +16,10 @@ class Searches {
     }
 
     /*
-    ciudad = city
+    ciudades = cities
     lugar = place
     */
-    async city(place = '') {
+    async cities(place = '') {
         try {
             // Peticion http
             const instance = axios.create({
@@ -27,9 +27,14 @@ class Searches {
                 params: this.paramsMapbox
             })
             const resp = await instance.get();
-            console.log(resp.data);
+            // retorna las ciudades encontradas, en un objeto implicito
+            return resp.data.features.map(item => ({
+                id: item.id,
+                name: item.place_name,
+                lng: item.center[0],
+                lat: item.center[1]
+            }))
 
-            return []; // retorna las ciudades encontrdas   
         } catch (error) {
             return [];
         }

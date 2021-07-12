@@ -60,13 +60,13 @@ const readInput = async(message) => {
     return desc
 }
 
-const listTalkDelete = async(talks = []) => {
+const listPlaces = async(places = []) => {
 
-    const choices = talks.map((item, i) => {
+    const choices = places.map((item, i) => {
         const idx = `${i+1}.`.green;
         return {
             value: item.id,
-            name: `${idx} ${item.desc}`
+            name: `${idx} ${item.name}`
         }
     })
 
@@ -78,7 +78,7 @@ const listTalkDelete = async(talks = []) => {
     const question = [{
         type: 'list',
         name: 'id',
-        message: 'Delete',
+        message: 'Selccione lugar',
         choices
     }];
 
@@ -126,7 +126,7 @@ module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    listTalkDelete,
+    listPlaces,
     confirm,
     selectTalkCheckList
 }
