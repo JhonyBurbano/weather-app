@@ -44,6 +44,7 @@ const main = async() => {
                 console.log('Mínima:', climate.min);
                 console.log('Máxima:', climate.max);
                 console.log('Estado del clima:', climate.desc.green);
+                console.log('');
                 break;
             case 2:
                 // Mostrar el Historial

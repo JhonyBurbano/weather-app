@@ -11,7 +11,12 @@ class Searches {
     }
 
     get capitalize() {
-
+        return this.records.map(place => {
+            // palabras = words
+            let words = place.split(' ');
+            words = words.map(p => p[0].toUpperCase() + p.substring(1));
+            return words.join(' ');
+        })
     }
 
     get paramsMapbox() {
@@ -75,16 +80,20 @@ class Searches {
     }
 
     addRecord() {
-        this.records.forEach((place, i) => {
+        console.log('');
+        this.capitalize.forEach((place, i) => {
             const idx = `${i+1}.`.green;
             console.log(`${idx} ${place}`);
         })
+        console.log('');
     }
 
     savePlace(place = '') {
         if (this.records.includes(place.toLocaleLowerCase())) {
             return;
         }
+        // tener array de 6 posiciones
+        this.records = this.records.splice(0, 5);
         this.records.unshift(place.toLocaleLowerCase());
 
         this.saveDB()
