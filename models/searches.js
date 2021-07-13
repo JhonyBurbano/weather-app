@@ -15,6 +15,14 @@ class Searches {
         }
     }
 
+    get paramsOpenWeather() {
+        return {
+            'appid': process.env.OPENWEATHER_KEY,
+            'units': 'metric',
+            'lang': 'es'
+        }
+    }
+
     /*
     ciudades = cities
     lugar = place
@@ -46,31 +54,17 @@ class Searches {
 
         const instance = axios.create({
             baseURL: 'https://api.openweathermap.org/data/2.5/weather',
-            params: {
-                'lat': lat,
-                'lon': lon,
-                'appid': process.env.OPENWEATHER_KEY,
-                'units': 'metric',
-                'lang': 'es'
-            }
+            params: {...this.paramsOpenWeather, lat, lon }
         });
 
         const res = await instance.get();
-        const desc = res.data.weather[0].description
-        const { temp, temp_min, temp_max } = res.data.main
+        const { weather, main } = res.data
         return {
-            desc,
-            temp,
-            min: temp_min,
-            max: temp_max
+            desc: weather[0].description,
+            temp: main.temp,
+            min: main.temp_min,
+            max: main.temp_max
         }
-        // return res.data.map(info => ({
-        //     desc: info.weather[0].description,
-        //     temp: info.main.temp,
-        //     min: info.main.temp_min,
-        //     max: info.main.temp_max
-        // }))
-
     }
 }
 
