@@ -1,10 +1,17 @@
+const fs = require('fs')
+
 const axios = require('axios');
 class Searches {
     // atributos o propiedades
-    records = ['Ottawa', 'Madrid', 'San jose']
+    records = []
+    dbUrl = './db/database.json';
 
     constructor() {
-        // TODO: Leer base de datos si existe
+        this.readDB()
+    }
+
+    get capitalize() {
+
     }
 
     get paramsMapbox() {
@@ -65,6 +72,41 @@ class Searches {
             min: main.temp_min,
             max: main.temp_max
         }
+    }
+
+    addRecord() {
+        this.records.forEach((place, i) => {
+            const idx = `${i+1}.`.green;
+            console.log(`${idx} ${place}`);
+        })
+    }
+
+    savePlace(place = '') {
+        if (this.records.includes(place.toLocaleLowerCase())) {
+            return;
+        }
+        this.records.unshift(place.toLocaleLowerCase());
+
+        this.saveDB()
+    }
+
+    saveDB() {
+        const payload = {
+            history: this.records
+        }
+        fs.writeFileSync(this.dbUrl, JSON.stringify(payload))
+    }
+
+    readDB() {
+        // Existe bd
+        if (!fs.existsSync(this.dbUrl)) {
+            return;
+        }
+
+        const info = fs.readFileSync(this.dbUrl, { encoding: 'utf-8' })
+        const data = JSON.parse(info)
+
+        this.records = data.history;
     }
 }
 

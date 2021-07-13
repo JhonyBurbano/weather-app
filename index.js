@@ -24,8 +24,12 @@ const main = async() => {
 
                 // Seleccionar el lugar
                 const id = await listPlaces(places)
+                if (id === '0') continue;
                 const placeInfo = places.find(i => i.id === id)
                 const { lat, lng } = placeInfo
+
+                //guardar lugar
+                searches.savePlace(placeInfo.name)
 
                 // Clima
                 const climate = await searches.climateOfThePlace(lat, lng)
@@ -41,7 +45,10 @@ const main = async() => {
                 console.log('Máxima:', climate.max);
                 console.log('Estado del clima:', climate.desc.green);
                 break;
-
+            case 2:
+                // Mostrar el Historial
+                searches.addRecord();
+                break;
             default:
                 break;
         }
